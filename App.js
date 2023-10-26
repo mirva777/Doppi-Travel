@@ -1,14 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import TextInput from "./components/TextInput";
+import Page from "./components/Page";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <Page style={styles.container}>
+      <Image source={require("./assets/logo.png")} />
       <TextInput placeholder="+998 99 089 40 16" />
       <StatusBar />
-    </View>
+    </Page>
   );
 }
 
