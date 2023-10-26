@@ -7,7 +7,6 @@ import Page from "./components/Page";
 export default function App() {
   return (
     <Page style={styles.container}>
-      <Image source={require("./assets/logo.png")} />
       <TextInput placeholder="+998 99 089 40 16" />
       <StatusBar />
     </Page>
