@@ -1,22 +1,23 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { Image, StyleSheet, View } from "react-native";
-import TextInput from "./components/TextInput";
-import Page from "./components/Page";
+import { StyleSheet } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import Login from "./pages/Login";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <Page style={styles.container}>
-      <TextInput placeholder="+998 99 089 40 16" />
-      <StatusBar />
-    </Page>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          animation: "slide_from_right",
+          headerShown: false,
+        }}
+        initialRouteName="Details"
+      >
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Details" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

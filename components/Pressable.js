@@ -2,9 +2,10 @@ import React from "react";
 import { StyleSheet, Pressable as NativePressable } from "react-native";
 import Text from "./Text";
 
-const Pressable = ({ children, ...props }) => {
+const Pressable = ({ children, style, ...props }) => {
+  const buttonStyle = style ? { ...styles.btn, ...style } : styles.btn;
   return (
-    <NativePressable {...props} style={styles.btn}>
+    <NativePressable style={buttonStyle} {...props}>
       <Text style={styles.text}>{children}</Text>
     </NativePressable>
   );
