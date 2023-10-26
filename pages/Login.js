@@ -10,7 +10,7 @@ const Login = ({ navigation }) => {
       <Text style={styles.text}>Enter your mobile number.</Text>
       <TextInput placeholder="+998 99 089 40 16" />
       <Pressable
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("Confirmation")}
         style={styles.btn}
       >
         Next

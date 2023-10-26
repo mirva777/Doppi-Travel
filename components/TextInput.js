@@ -6,6 +6,7 @@ const TextInput = ({ ...props }) => {
     <NativeTextInput
       placeholderTextColor="#00000033"
       style={styles.input}
+      secureTextEntry={true}
       {...props}
     />
   );
