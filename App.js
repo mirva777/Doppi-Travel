@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Login from "./pages/Login";
-import PasswordConfirmation from "./pages/PasswordConfirmation";
-import Test from "./pages/test";
+import Login from "./src/pages/Login";
+import Test from "./src/pages/test";
+import PasswordConfirmation from "./src/pages/PasswordConfirmation";
 
 const Stack = createNativeStackNavigator();
 

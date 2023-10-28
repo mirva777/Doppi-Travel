@@ -6,10 +6,13 @@ const Page = ({ children }) => {
     <View style={styles.container}>
       <Image
         style={styles.bgImageUpper}
-        source={require("../assets/page-bg-upper.png")}
+        source={require("../../assets/page-bg-upper.png")}
       />
-      <Image style={styles.logoImg} source={require("../assets/logo.png")} />
-      <Image style={styles.bgImage} source={require("../assets/page-bg.png")} />
+      <Image style={styles.logoImg} source={require("../../assets/logo.png")} />
+      <Image
+        style={styles.bgImage}
+        source={require("../../assets/page-bg.png")}
+      />
       {children}
     </View>
   );
