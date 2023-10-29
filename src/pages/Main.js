@@ -1,10 +1,13 @@
 import React from "react";
-import Page from "../components/Page";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import useLocation from "../hooks/useLocation";
 import Map from "../components/Map";
-import CustomModal from "../components/CustomModal";
 import { checkRegionValidity } from "../utils";
+import Loader from "../components/Loader";
+import Icon from "react-native-vector-icons/FontAwesome";
+import useToggle from "../hooks/useToggle";
+import Sidebar from "../components/Sidebar";
+import { IconButton } from "react-native-paper";
 
 const uzbekistanRegion = {
   latitude: 41.3111,
@@ -13,10 +16,11 @@ const uzbekistanRegion = {
   longitudeDelta: 15,
 };
 
-const Test = () => {
+const Main = ({ navigation }) => {
   const [selectedPoi, setSelectedPoi] = React.useState(null);
   const [currRegion, setCurrRegion] = React.useState(null);
   const { isLoading, isGranted, currRegion: initialRegion } = useLocation();
+  const [isSidebarOpen, toggleSidebar] = useToggle(false);
 
   React.useEffect(() => {
     if (!initialRegion) {
@@ -33,36 +37,52 @@ const Test = () => {
   };
 
   return (
-    <Page style={styles.page}>
+    <View style={styles.page}>
       {isLoading ? (
-        <Text>Loading...</Text>
+        <Loader size="large" />
       ) : isGranted === false ? (
         <Text>Please enable location permissions</Text>
       ) : (
         <Map
-          onPoiClick={(e) =>
+          onPoiClick={(e) => {
             setSelectedPoi({
               name: e.nativeEvent.name,
               location: e.nativeEvent.coordinate,
-            })
-          }
+            });
+          }}
           region={currRegion}
           onRegionChange={handleRegionChange}
-        ></Map>
+        />
       )}
-      <CustomModal
-        visible={Boolean(selectedPoi)}
-        onClose={() => setSelectedPoi(null)}
-        title={selectedPoi?.name}
+      <Sidebar
+        navigation={navigation}
+        visible={isSidebarOpen}
+        onDismiss={toggleSidebar}
       />
-    </Page>
+      <IconButton
+        mode="contained"
+        iconColor="#fff"
+        onPress={toggleSidebar}
+        style={styles.menuIcon}
+        icon="menu"
+        size={24}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
+    flex: 1,
     position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  menuIcon: {
+    position: "absolute",
+    top: 70,
+    right: 20,
   },
 });
 
-export default Test;
+export default Main;

@@ -1,17 +1,18 @@
 import React from "react";
-import { Text as NativeText, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { Text as PaperText } from "react-native-paper";
 
-const Text = ({ children, ...props }) => {
+const Text = ({ children, style, ...props }) => {
   return (
-    <NativeText style={styles.text} {...props}>
+    <PaperText style={[styles.text, style]} {...props}>
       {children}
-    </NativeText>
+    </PaperText>
   );
 };
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "Cochin",
+    color: "#000",
   },
 });
 

@@ -6,7 +6,6 @@ import { StyleSheet } from "react-native";
 const CodeInput = ({ value, onValueChange, length }) => {
   return (
     <CodeField
-      style={styles.codeFieldRoot}
       value={value}
       onChangeText={onValueChange}
       cellCount={length}
@@ -30,6 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
     marginRight: 4,
     shadowColor: "#000",
+    color: "#000",
     shadowOffset: {
       width: 0,
       height: 3,

@@ -1,7 +1,8 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
+import { IconButton } from "react-native-paper";
 
-const Page = ({ children }) => {
+const Page = ({ children, navigation }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -13,7 +14,20 @@ const Page = ({ children }) => {
         style={styles.bgImage}
         source={require("../../assets/page-bg.png")}
       />
-      {children}
+      <View style={styles.innerView}>
+        {navigation && (
+          <IconButton
+            mode="contained"
+            style={styles.backBtn}
+            icon="chevron-left"
+            iconColor="#fff"
+            onPress={() => {
+              navigation.navigate("Main");
+            }}
+          />
+        )}
+        {children}
+      </View>
     </View>
   );
 };
@@ -53,6 +67,21 @@ const styles = StyleSheet.create({
     width: 125,
     height: 50,
     top: 60,
+  },
+
+  innerView: {
+    width: "100%",
+    height: "100%",
+    paddingHorizontal: 48,
+    position: "relative",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  backBtn: {
+    position: "absolute",
+    top: 100,
+    left: 35,
   },
 });
 

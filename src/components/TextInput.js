@@ -1,35 +1,17 @@
 import React from "react";
-import { TextInput as NativeTextInput, StyleSheet } from "react-native";
+import { TextInput as PaperTextInput } from "react-native-paper";
 
 const TextInput = ({ ...props }) => {
   return (
-    <NativeTextInput
+    <PaperTextInput
       placeholderTextColor="#00000033"
-      style={styles.input}
       secureTextEntry={true}
+      textColor="#f3e7e7"
+      activeUnderlineColor="#f3e7e7"
+      backgroundColor="black"
       {...props}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    padding: 8,
-    minWidth: 200,
-    backgroundColor: "#fafafa",
-    color: "#000",
-    width: 200,
-    height: 43,
-    fontWeight: "700",
-    textAlign: "center",
-    shadowColor: "#00000083",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-});
 
 export default TextInput;
