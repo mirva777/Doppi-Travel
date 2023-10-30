@@ -7,6 +7,7 @@ const Stack = createNativeStackNavigator();
 const Signup = () => {
   return (
     <Stack.Navigator
+      initialRouteName="step-1"
       screenOptions={{
         headerShown: false,
       }}

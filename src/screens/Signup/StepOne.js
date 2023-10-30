@@ -5,9 +5,21 @@ import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Text from "../../components/Text";
 import { Button, TextInput } from "react-native-paper";
+import isEmail from "validator/es/lib/isEmail";
 
 const StepOne = () => {
+  const [email, setEmail] = React.useState("");
   const navigation = useNavigation();
+
+  const handleSignup = () => {
+    if (isEmail(email) === false) {
+      alert("Please enter a valid email.");
+      return;
+    }
+
+    alert("Success");
+  };
+
   return (
     <Page>
       <TextInput
@@ -15,18 +27,16 @@ const StepOne = () => {
         textColor="#000"
         activeUnderlineColor="#000"
         style={styles.input}
+        value={email}
+        onChangeText={setEmail}
         label="Email"
       />
-      <Pressable
-        onPress={() => navigation.navigate("step-2")}
-        style={styles.btn}
-        mode="elevated"
-      >
+      <Pressable onPress={handleSignup} style={styles.btn} mode="elevated">
         Signup
       </Pressable>
-      <View textColor="#000" style={styles.loginBtn} mode="text">
+      <View style={styles.loginView}>
         <Text style={styles.loginText}>Already have an account?</Text>
-        <Button onPress={() => console.log(1)} textColor="#000">
+        <Button onPress={() => navigation.navigate("Login")} textColor="#000">
           Login
         </Button>
       </View>
@@ -43,7 +53,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#fff",
   },
-  loginBtn: {
+  loginView: {
     marginTop: 16,
     width: "100%",
     display: "flex",
