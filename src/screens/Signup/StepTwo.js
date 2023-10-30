@@ -30,10 +30,8 @@ const StepTwo = ({ route }) => {
         code
       );
       const res = await firebase.auth().signInWithCredential(credentials);
-      console.log(res);
       navigate.navigate("Main");
     } catch (error) {
-      console.log(error);
       openSnackbar("Invalid code");
     } finally {
       toggleLoading();

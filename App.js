@@ -8,7 +8,6 @@ import Recommendations from "./src/screens/Recommendations";
 import Hotels from "./src/screens/Hotels";
 import Restaurants from "./src/screens/Restaurants";
 import Tours from "./src/screens/Tours";
-import Login from "./src/screens/Login/Login";
 import React from "react";
 import useLocation from "./src/hooks/useLocation";
 import Text from "./src/components/Text";
@@ -27,12 +26,12 @@ export default function App() {
     message: "",
   });
 
-  const openSnackbar = (message) => {
+  const openSnackbar = React.useCallback((message) => {
     setSnackbar({
       isOpen: true,
       message,
     });
-  };
+  }, []);
 
   return (
     <AppContext.Provider

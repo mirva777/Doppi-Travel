@@ -17,8 +17,6 @@ const Map = ({ ...props }) => {
 
 const styles = StyleSheet.create({
   map: {
-    position: "absolute",
-    inset: 0,
     width: "100%",
     height: "100%",
   },

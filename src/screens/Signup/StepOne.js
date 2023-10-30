@@ -28,7 +28,6 @@ const StepOne = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
         openSnackbar("Error occured. Check if you wrote the number correctly");
       });
   };
