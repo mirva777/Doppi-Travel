@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import Page from "../components/Page";
-import TextInput from "../components/TextInput";
-import Pressable from "../components/Pressable";
+import Page from "../../components/Page";
+import TextInput from "../../components/TextInput";
+import Pressable from "../../components/Pressable";
 
 const Login = ({ navigation }) => {
   return (

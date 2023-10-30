@@ -1,12 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import useLocation from "../hooks/useLocation";
-import Map from "../components/Map";
-import { checkRegionValidity } from "../utils";
-import Loader from "../components/Loader";
-import Icon from "react-native-vector-icons/FontAwesome";
-import useToggle from "../hooks/useToggle";
-import Sidebar from "../components/Sidebar";
+import useLocation from "../../hooks/useLocation";
+import Map from "../../components/Map";
+import { checkRegionValidity } from "../../utils";
+import Loader from "../../components/Loader";
+import useToggle from "../../hooks/useToggle";
+import Sidebar from "./Sidebar";
 import { IconButton } from "react-native-paper";
 
 const uzbekistanRegion = {

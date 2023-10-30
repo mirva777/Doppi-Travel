@@ -2,29 +2,7 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { Image } from "react-native";
 import { Avatar, Modal, Portal } from "react-native-paper";
-
-const sidebarItems = [
-  {
-    id: 1,
-    title: "Recommendations",
-    slug: "Recommendations",
-  },
-  {
-    id: 2,
-    title: "Hotels",
-    slug: "Hotels",
-  },
-  {
-    id: 3,
-    title: "Restaurants",
-    slug: "Restaurants",
-  },
-  {
-    id: 4,
-    title: "Tours",
-    slug: "Tours",
-  },
-];
+import { sidebarItems } from "./constants";
 
 const Sidebar = ({ visible, navigation, onDismiss }) => {
   return (
@@ -33,7 +11,7 @@ const Sidebar = ({ visible, navigation, onDismiss }) => {
         <View style={styles.modalWrapper}>
           <Image
             style={styles.logo}
-            source={require("../../assets/logo.png")}
+            source={require("../../../assets/logo.png")}
           />
           <View style={styles.wrapper}>
             <View style={styles.btnList}>

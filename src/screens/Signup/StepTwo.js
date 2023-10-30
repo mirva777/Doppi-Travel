@@ -1,13 +1,13 @@
 import React from "react";
-import Page from "../components/Page";
-import CodeInput from "../components/CodeInput";
+import Page from "../../components/Page";
+import CodeInput from "../../components/CodeInput";
 import { StyleSheet } from "react-native";
-import Pressable from "../components/Pressable";
-import Text from "../components/Text";
+import Pressable from "../../components/Pressable";
+import Text from "../../components/Text";
 
 const CODE_LENGTH = 4;
 
-const PasswordConfirmation = ({ navigation }) => {
+const StepTwo = ({ navigation }) => {
   const [code, setCode] = React.useState("");
 
   const handleConfirm = () => {
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginTop: 16,
+    width: "80%",
   },
 });
 
-export default PasswordConfirmation;
+export default StepTwo;
