@@ -3,8 +3,11 @@ import { Pressable, Text, View } from "react-native";
 import { Image } from "react-native";
 import { Avatar, Modal, Portal } from "react-native-paper";
 import { sidebarItems } from "./constants";
+import { useNavigation } from "@react-navigation/native";
 
-const Sidebar = ({ visible, navigation, onDismiss }) => {
+const Sidebar = ({ visible, onDismiss }) => {
+  const navigation = useNavigation();
+
   return (
     <Portal>
       <Modal style={styles.modal} visible={visible} onDismiss={onDismiss}>
@@ -32,7 +35,13 @@ const Sidebar = ({ visible, navigation, onDismiss }) => {
               })}
             </View>
             <View>
-              <Pressable onPress={() => console.log(1)} style={styles.account}>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate("Signup");
+                  onDismiss();
+                }}
+                style={styles.account}
+              >
                 <Avatar.Icon
                   color="#000"
                   backgroundColor="#fff"

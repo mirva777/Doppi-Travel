@@ -6,18 +6,31 @@ import { useNavigation } from "@react-navigation/native";
 import Text from "../../components/Text";
 import { Button, TextInput } from "react-native-paper";
 import isEmail from "validator/es/lib/isEmail";
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import { firebaseConfig } from "../../../firebase";
+import firebase from "firebase/compat";
+import { AppContext } from "../../../App";
 
 const StepOne = () => {
-  const [email, setEmail] = React.useState("");
+  const { openSnackbar } = React.useContext(AppContext);
+  const [phoneNumber, setPhoneNumber] = React.useState("");
   const navigation = useNavigation();
+  const recaptchaRef = React.useRef(null);
 
   const handleSignup = () => {
-    if (isEmail(email) === false) {
-      alert("Please enter a valid email.");
-      return;
-    }
-
-    alert("Success");
+    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    phoneProvider
+      .verifyPhoneNumber(phoneNumber, recaptchaRef.current)
+      .then((code) => {
+        navigation.navigate("step-2", {
+          verificationCode: code,
+          phoneNumber,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        openSnackbar("Error occured. Check if you wrote the number correctly");
+      });
   };
 
   return (
@@ -27,19 +40,19 @@ const StepOne = () => {
         textColor="#000"
         activeUnderlineColor="#000"
         style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        label="Email"
+        value={phoneNumber}
+        keyboardType="phone-pad"
+        onChangeText={setPhoneNumber}
+        label="Phone number"
+        type="number"
+      />
+      <FirebaseRecaptchaVerifierModal
+        ref={recaptchaRef}
+        firebaseConfig={firebaseConfig}
       />
       <Pressable onPress={handleSignup} style={styles.btn} mode="elevated">
         Signup
       </Pressable>
-      <View style={styles.loginView}>
-        <Text style={styles.loginText}>Already have an account?</Text>
-        <Button onPress={() => navigation.navigate("Login")} textColor="#000">
-          Login
-        </Button>
-      </View>
     </Page>
   );
 };
@@ -52,17 +65,6 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     backgroundColor: "#fff",
-  },
-  loginView: {
-    marginTop: 16,
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  loginText: {
-    color: "rgba(0, 0, 0, 0.3)",
   },
 });
 

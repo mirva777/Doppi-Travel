@@ -25,7 +25,6 @@ const useLocation = () => {
       setIsGranted(true);
       toggleLoading();
     };
-    console.log(111);
 
     fetchData();
   }, []);

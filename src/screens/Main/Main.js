@@ -1,45 +1,26 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import useLocation from "../../hooks/useLocation";
 import Map from "../../components/Map";
-import { checkRegionValidity } from "../../utils";
 import Loader from "../../components/Loader";
 import useToggle from "../../hooks/useToggle";
 import Sidebar from "./Sidebar";
 import { IconButton } from "react-native-paper";
+import { AppContext } from "../../../App";
+import BottomPanel from "./BottomPanel";
 
-const uzbekistanRegion = {
-  latitude: 41.3111,
-  longitude: 69.2401,
-  latitudeDelta: 15,
-  longitudeDelta: 15,
-};
-
-const Main = ({ navigation }) => {
+const Main = () => {
   const [selectedPoi, setSelectedPoi] = React.useState(null);
-  const [currRegion, setCurrRegion] = React.useState(null);
-  const { isLoading, isGranted, currRegion: initialRegion } = useLocation();
+  const { isLocationGranted, isLocationLoading, currLocation } =
+    React.useContext(AppContext);
   const [isSidebarOpen, toggleSidebar] = useToggle(false);
 
-  React.useEffect(() => {
-    if (!initialRegion) {
-      return;
-    }
-
-    setCurrRegion(initialRegion);
-  }, [initialRegion]);
-
-  const handleRegionChange = (newRegion) => {
-    if (checkRegionValidity(newRegion, uzbekistanRegion) === false) {
-      setCurrRegion(uzbekistanRegion);
-    }
-  };
+  console.log(123);
 
   return (
     <View style={styles.page}>
-      {isLoading ? (
+      {isLocationLoading ? (
         <Loader size="large" />
-      ) : isGranted === false ? (
+      ) : isLocationGranted === false ? (
         <Text>Please enable location permissions</Text>
       ) : (
         <Map
@@ -49,15 +30,10 @@ const Main = ({ navigation }) => {
               location: e.nativeEvent.coordinate,
             });
           }}
-          region={currRegion}
-          onRegionChange={handleRegionChange}
+          initialRegion={currLocation}
         />
       )}
-      <Sidebar
-        navigation={navigation}
-        visible={isSidebarOpen}
-        onDismiss={toggleSidebar}
-      />
+      <Sidebar visible={isSidebarOpen} onDismiss={toggleSidebar} />
       <IconButton
         mode="contained"
         iconColor="#fff"
@@ -66,6 +42,7 @@ const Main = ({ navigation }) => {
         icon="menu"
         size={24}
       />
+      {/* <BottomPanel selectedPoi={selectedPoi} /> */}
     </View>
   );
 };

@@ -4,18 +4,40 @@ import CodeInput from "../../components/CodeInput";
 import { StyleSheet } from "react-native";
 import Pressable from "../../components/Pressable";
 import Text from "../../components/Text";
+import firebase from "firebase/compat";
+import useToggle from "../../hooks/useToggle";
+import { AppContext } from "../../../App";
+import { useNavigation } from "@react-navigation/native";
 
-const CODE_LENGTH = 4;
+const CODE_LENGTH = 6;
 
-const StepTwo = ({ navigation }) => {
+const StepTwo = ({ route }) => {
+  const { openSnackbar } = React.useContext(AppContext);
   const [code, setCode] = React.useState("");
+  const [isLoading, toggleLoading] = useToggle(false);
+  const navigate = useNavigation();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (code.length < CODE_LENGTH) {
       return alert("Please enter the code");
     }
 
-    navigation.navigate("Main");
+    toggleLoading();
+
+    try {
+      const credentials = firebase.auth.PhoneAuthProvider.credential(
+        route.params.verificationCode,
+        code
+      );
+      const res = await firebase.auth().signInWithCredential(credentials);
+      console.log(res);
+      navigate.navigate("Main");
+    } catch (error) {
+      console.log(error);
+      openSnackbar("Invalid code");
+    } finally {
+      toggleLoading();
+    }
   };
 
   return (
@@ -24,7 +46,7 @@ const StepTwo = ({ navigation }) => {
         Enter the sms you received
       </Text>
       <CodeInput value={code} onValueChange={setCode} length={CODE_LENGTH} />
-      <Pressable onPress={handleConfirm} style={styles.btn}>
+      <Pressable loading={isLoading} onPress={handleConfirm} style={styles.btn}>
         Confirm
       </Pressable>
     </Page>

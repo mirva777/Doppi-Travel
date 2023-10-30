@@ -1,8 +1,11 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
-const Page = ({ children, navigation }) => {
+const Page = ({ children, withBackBtn = false }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Image
@@ -15,14 +18,14 @@ const Page = ({ children, navigation }) => {
         source={require("../../assets/page-bg.png")}
       />
       <View style={styles.innerView}>
-        {navigation && (
+        {withBackBtn && (
           <IconButton
             mode="contained"
             style={styles.backBtn}
             icon="chevron-left"
             iconColor="#fff"
             onPress={() => {
-              navigation.navigate("Main");
+              navigation.goBack();
             }}
           />
         )}
