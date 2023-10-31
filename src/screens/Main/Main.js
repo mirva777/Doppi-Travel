@@ -67,18 +67,20 @@ const Main = () => {
       ) : isLocationGranted === false ? (
         <Text>Please enable location permissions</Text>
       ) : (
-        <Map onPoiClick={handlePoiPress} initialRegion={currLocation} />
+        <>
+          <Map onPoiClick={handlePoiPress} initialRegion={currLocation} />
+          <Sidebar visible={isSidebarOpen} onDismiss={toggleSidebar} />
+          <IconButton
+            mode="contained"
+            iconColor="#fff"
+            onPress={toggleSidebar}
+            style={styles.menuIcon}
+            icon="menu"
+            size={24}
+          />
+          <BottomPanel ref={modalizeRef} selectedPoi={selectedPoi} />
+        </>
       )}
-      <Sidebar visible={isSidebarOpen} onDismiss={toggleSidebar} />
-      <IconButton
-        mode="contained"
-        iconColor="#fff"
-        onPress={toggleSidebar}
-        style={styles.menuIcon}
-        icon="menu"
-        size={24}
-      />
-      <BottomPanel ref={modalizeRef} selectedPoi={selectedPoi} />
     </View>
   );
 };
