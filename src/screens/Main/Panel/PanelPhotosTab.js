@@ -1,11 +1,9 @@
 import React from "react";
 import { Image, ScrollView, View } from "react-native";
 import { Text } from "react-native-paper";
-
-const apiKey = "AIzaSyCT-VHH-zXNZqZIO5QSLr0qsZu1U42sfBQ";
+import { apiKey } from "../../../constants";
 
 const PanelPhotosTab = ({ photos = [] }) => {
-  console.log(photos[1]);
   return (
     <View>
       {photos.length === 0 && <Text>No photo available</Text>}
@@ -13,6 +11,7 @@ const PanelPhotosTab = ({ photos = [] }) => {
         <View
           style={{
             gap: 24,
+            paddingBottom: 24,
           }}
         >
           {photos.map((photo, index) => {

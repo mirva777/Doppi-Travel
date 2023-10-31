@@ -8,10 +8,6 @@ const Page = ({ children, withBackBtn = false }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.bgImageUpper}
-        source={require("../../assets/page-bg-upper.png")}
-      />
       <Image style={styles.logoImg} source={require("../../assets/logo.png")} />
       <Image
         style={styles.bgImage}
@@ -60,10 +56,10 @@ const styles = StyleSheet.create({
   bgImage: {
     position: "absolute",
     left: 0,
-    bottom: -35,
+    bottom: 0,
     width: "100%",
-    height: "100%",
-    objectFit: "contain",
+    height: "80%",
+    objectFit: "cover",
   },
   logoImg: {
     position: "absolute",
@@ -71,7 +67,6 @@ const styles = StyleSheet.create({
     height: 50,
     top: 60,
   },
-
   innerView: {
     width: "100%",
     height: "100%",
@@ -80,6 +75,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 72,
+    paddingTop: 96,
   },
   backBtn: {
     position: "absolute",

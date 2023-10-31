@@ -4,8 +4,10 @@ import { Image } from "react-native";
 import { Avatar, Modal, Portal } from "react-native-paper";
 import { sidebarItems } from "./constants";
 import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "../../../App";
 
 const Sidebar = ({ visible, onDismiss }) => {
+  const { user } = React.useContext(AppContext);
   const navigation = useNavigation();
 
   return (
@@ -37,7 +39,11 @@ const Sidebar = ({ visible, onDismiss }) => {
             <View>
               <Pressable
                 onPress={() => {
-                  navigation.navigate("Signup");
+                  if (user) {
+                    navigation.navigate("Logout");
+                  } else {
+                    navigation.navigate("Signup");
+                  }
                   onDismiss();
                 }}
                 style={styles.account}
@@ -48,7 +54,7 @@ const Sidebar = ({ visible, onDismiss }) => {
                   size={24}
                   icon="account"
                 />
-                <Text>Not logged in</Text>
+                <Text>{user ? user.phoneNumber : "Not logged in"}</Text>
               </Pressable>
             </View>
           </View>

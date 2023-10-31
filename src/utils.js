@@ -19,3 +19,8 @@ export function getTwoRandomNumbersFromSum(sum = 0) {
 
   return [firstNumber, secondNumber];
 }
+
+export function getRandomOption(options = []) {
+  const randomIndex = Math.floor(Math.random() * options.length);
+  return options[randomIndex];
+}

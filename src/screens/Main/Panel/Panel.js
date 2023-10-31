@@ -2,7 +2,7 @@ import React from "react";
 import { Dimensions, Image, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Modalize } from "react-native-modalize";
-import { Divider, Text } from "react-native-paper";
+import { Button, Divider, Text } from "react-native-paper";
 import Loader from "../../../components/Loader";
 import { View } from "react-native";
 import { getTwoRandomNumbersFromSum, range } from "../../../utils";
@@ -11,19 +11,19 @@ import { SceneMap, TabView, TabBar } from "react-native-tab-view";
 import PanelOverviewTab from "./PanelOverviewTab";
 import PanelPhotosTab from "./PanelPhotosTab";
 import PanelReviewsTab from "./PanelReviewsTab";
-
-const apiKey = "AIzaSyCT-VHH-zXNZqZIO5QSLr0qsZu1U42sfBQ";
-const placeholderImgSrc =
-  "https://i0.wp.com/thinkfirstcommunication.com/wp-content/uploads/2022/05/placeholder-1-1.png?fit=1200%2C800&ssl=1";
+import { AppContext } from "../../../../App";
+import { apiKey, placeholderImgSrc } from "../../../constants";
 
 const Panel = ({ selectedPoi }, ref) => {
+  const { user, openSnackbar } = React.useContext(AppContext);
   const [index, setIndex] = React.useState(0);
-  console.log(selectedPoi?.photos);
   const [routes] = React.useState([
     { key: "first", title: "Overview" },
     { key: "second", title: `Photos` },
     { key: "third", title: `Reviews` },
   ]);
+  const [isRecommending, setIsRecommending] = React.useState(false);
+  const [recommendedPlaces, setRecommendedPlaces] = React.useState([]);
 
   const renderScene = SceneMap({
     first: () => (
@@ -44,6 +44,23 @@ const Panel = ({ selectedPoi }, ref) => {
     return getTwoRandomNumbersFromSum(selectedPoi?.userRatingsTotal);
   }, [selectedPoi]);
 
+  const handleRecommendPress = () => {
+    if (!user) {
+      openSnackbar("You need to login first.");
+      return;
+    }
+    if (recommendedPlaces.includes(selectedPoi.id)) {
+      openSnackbar("You can only recommend once.");
+      return;
+    }
+
+    setIsRecommending(true);
+    setTimeout(() => {
+      setIsRecommending(false);
+      setRecommendedPlaces([...recommendedPlaces, selectedPoi.id]);
+    }, 1500);
+  };
+
   return (
     <GestureHandlerRootView style={styles.view}>
       <Modalize
@@ -54,7 +71,11 @@ const Panel = ({ selectedPoi }, ref) => {
         ref={ref}
       >
         {selectedPoi === "loading" ? (
-          <Loader />
+          <Loader
+            style={{
+              marginTop: 24,
+            }}
+          />
         ) : (
           <View>
             <Image
@@ -81,9 +102,18 @@ const Panel = ({ selectedPoi }, ref) => {
                 >
                   {range(5).map((index) => {
                     if (index <= selectedPoi.rating) {
-                      return <Icon size={16} name="star" color={"#FFD700"} />;
+                      return (
+                        <Icon
+                          key={index}
+                          size={16}
+                          name="star"
+                          color={"#FFD700"}
+                        />
+                      );
                     }
-                    return <Icon size={16} name="star" color="#808080" />;
+                    return (
+                      <Icon key={index} size={16} name="star" color="#808080" />
+                    );
                   })}
                   <View
                     style={{
@@ -128,6 +158,28 @@ const Panel = ({ selectedPoi }, ref) => {
                   No Rating
                 </Text>
               )}
+              <Button
+                loading={isRecommending}
+                onPress={handleRecommendPress}
+                textColor={
+                  recommendedPlaces.includes(selectedPoi?.id) ? "#000" : "#fff"
+                }
+                style={{
+                  backgroundColor: recommendedPlaces.includes(selectedPoi?.id)
+                    ? "#fff"
+                    : "#000",
+                  borderStyle: "solid",
+                  borderColor: "#000",
+                  borderWidth: recommendedPlaces.includes(selectedPoi?.id)
+                    ? 1
+                    : 0,
+                  borderRadius: 6,
+                }}
+              >
+                {recommendedPlaces.includes(selectedPoi?.id)
+                  ? "Recommended"
+                  : "Recommend"}
+              </Button>
               <Divider
                 style={{
                   marginLeft: -16,

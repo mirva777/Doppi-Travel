@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 const CODE_LENGTH = 6;
 
 const StepTwo = ({ route }) => {
-  const { openSnackbar } = React.useContext(AppContext);
+  const { handleLogin, openSnackbar } = React.useContext(AppContext);
   const [code, setCode] = React.useState("");
   const [isLoading, toggleLoading] = useToggle(false);
   const navigate = useNavigation();
@@ -30,6 +30,11 @@ const StepTwo = ({ route }) => {
         code
       );
       const res = await firebase.auth().signInWithCredential(credentials);
+      handleLogin({
+        phoneNumber: res.user.phoneNumber,
+        id: res.user.uid,
+      });
+      openSnackbar("Successfully logged in");
       navigate.navigate("Main");
     } catch (error) {
       openSnackbar("Invalid code");

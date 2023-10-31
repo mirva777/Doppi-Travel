@@ -31,7 +31,7 @@ const StepOne = () => {
   };
 
   return (
-    <Page>
+    <Page withBackBtn={true}>
       <TextInput
         underlineColor="#000"
         textColor="#000"

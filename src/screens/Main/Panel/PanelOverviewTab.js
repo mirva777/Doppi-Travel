@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -9,11 +9,12 @@ const PanelOverviewTab = ({
   workingHours,
 }) => {
   return (
-    <View style={styles.wrapper}>
+    <ScrollView style={styles.wrapper}>
       <View
         style={{
           flexDirection: "row",
           gap: 12,
+          marginBottom: 24,
         }}
       >
         <Icon size={24} name={"map-marker"} color="#999" />
@@ -31,7 +32,7 @@ const PanelOverviewTab = ({
               color: "#000",
             }}
           >
-            {address}
+            {address || "Not available"}
           </Text>
         </View>
       </View>
@@ -39,6 +40,7 @@ const PanelOverviewTab = ({
         style={{
           flexDirection: "row",
           gap: 12,
+          marginBottom: 24,
         }}
       >
         <Icon size={24} name={"phone"} color="#999" />
@@ -64,6 +66,7 @@ const PanelOverviewTab = ({
         style={{
           flexDirection: "row",
           gap: 12,
+          marginBottom: 24,
         }}
       >
         <Icon size={24} name={"clock-outline"} color="#999" />
@@ -77,31 +80,41 @@ const PanelOverviewTab = ({
             Working Hours
           </Text>
           <View>
-            {workingHours?.map((item, index) => {
-              return (
-                <Text
-                  key={index}
-                  style={{
-                    color: "#000",
-                    fontSize: 12,
-                    lineHeight: 18,
-                  }}
-                >
-                  {item}
-                </Text>
-              );
-            })}
+            {workingHours ? (
+              workingHours.map((item, index) => {
+                return (
+                  <Text
+                    key={index}
+                    style={{
+                      color: "#000",
+                      fontSize: 12,
+                      lineHeight: 18,
+                    }}
+                  >
+                    {item}
+                  </Text>
+                );
+              })
+            ) : (
+              <Text
+                style={{
+                  color: "#000",
+                }}
+              >
+                Not available
+              </Text>
+            )}
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingVertical: 16,
+    paddingBottom: 24,
     gap: 24,
   },
 });

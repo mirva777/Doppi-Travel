@@ -8,11 +8,11 @@ import { IconButton } from "react-native-paper";
 import { AppContext } from "../../../App";
 import axios from "axios";
 import Panel from "./Panel";
+import { apiKey } from "../../constants";
 
 const placesApiUrl = "https://maps.googleapis.com/maps/api/place/details/json";
-const apiKey = "AIzaSyCT-VHH-zXNZqZIO5QSLr0qsZu1U42sfBQ";
 
-const Main = () => {
+const Main = ({ route: { params } }) => {
   const { openSnackbar } = React.useContext(AppContext);
   const [selectedPoi, setSelectedPoi] = React.useState(null);
   const { isLocationGranted, isLocationLoading, currLocation } =
@@ -58,6 +58,15 @@ const Main = () => {
       openSnackbar("Something went wrong");
     }
   };
+
+  React.useEffect(() => {
+    if (!params || !params.id) {
+      return;
+    }
+
+    setSelectedPoi(params);
+    handleModalizeOpen();
+  }, [params]);
 
   return (
     <View style={styles.page}>
