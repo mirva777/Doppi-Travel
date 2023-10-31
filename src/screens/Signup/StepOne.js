@@ -1,11 +1,9 @@
 import React from "react";
 import Page from "../../components/Page";
 import Pressable from "../../components/Pressable";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Text from "../../components/Text";
-import { Button, TextInput } from "react-native-paper";
-import isEmail from "validator/es/lib/isEmail";
+import { TextInput } from "react-native-paper";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { firebaseConfig } from "../../../firebase";
 import firebase from "firebase/compat";

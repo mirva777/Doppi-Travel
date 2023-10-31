@@ -6,8 +6,8 @@ import useToggle from "../../hooks/useToggle";
 import Sidebar from "./Sidebar";
 import { IconButton } from "react-native-paper";
 import { AppContext } from "../../../App";
-import BottomPanel from "./BottomPanel";
 import axios from "axios";
+import Panel from "./Panel";
 
 const placesApiUrl = "https://maps.googleapis.com/maps/api/place/details/json";
 const apiKey = "AIzaSyCT-VHH-zXNZqZIO5QSLr0qsZu1U42sfBQ";
@@ -21,11 +21,11 @@ const Main = () => {
   const modalizeRef = React.useRef(null);
 
   const handleModalizeOpen = () => {
-    modalizeRef.current.open();
+    modalizeRef.current?.open();
   };
 
   const handleModalizeClose = () => {
-    modalizeRef.current.close();
+    modalizeRef.current?.close();
   };
 
   const handlePoiPress = async (e) => {
@@ -45,11 +45,10 @@ const Main = () => {
         rating: result.rating,
         type: result.types[0],
         userRatingsTotal: result.user_ratings_total,
-        address: result.formatted_address,
+        address: result.vicinity,
         isOpen: result.opening_hours?.open_now,
         weekday: result.opening_hours?.weekday_text,
         reviews: result.reviews,
-        image: result.url,
         name: result.name,
         photos: result.photos,
       });
@@ -78,7 +77,7 @@ const Main = () => {
             icon="menu"
             size={24}
           />
-          <BottomPanel ref={modalizeRef} selectedPoi={selectedPoi} />
+          <Panel ref={modalizeRef} selectedPoi={selectedPoi} />
         </>
       )}
     </View>

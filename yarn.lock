@@ -6062,6 +6062,11 @@ react-native-modalize@^2.1.1:
   resolved "https://registry.npmjs.org/react-native-modalize/-/react-native-modalize-2.1.1.tgz"
   integrity sha512-4/7EZWsrUqAAkkAVEnOsSdpAPQaEBewX7TvwFuzgvGDzxKpq3O58I9SnSeU8QtG/r91XYHJNaU5dAuDrcLjUaQ==
 
+react-native-pager-view@*:
+  version "6.2.2"
+  resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.2.2.tgz"
+  integrity sha512-MLkJB7iP6v0Hd4/B4/R/gLCSE+YBtjxG/vHZYBDU+fI3U7HBYgKAg4o6ad8HxbKVcWWyRDNeeVRGISw1MUjlHw==
+
 react-native-paper@^5.11.1:
   version "5.11.1"
   resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-5.11.1.tgz"
@@ -6083,6 +6088,13 @@ react-native-safe-area-context@*, "react-native-safe-area-context@>= 3.0.0", rea
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
+
+react-native-tab-view@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.5.2.tgz"
+  integrity sha512-nE5WqjbeEPsWQx4mtz81QGVvgHRhujTNIIZiMCx3Bj6CBFDafbk7XZp9ocmtzXUQaZ4bhtVS43R4FIiR4LboJw==
+  dependencies:
+    use-latest-callback "^0.1.5"
 
 react-native-vector-icons@*, react-native-vector-icons@^10.0.1:
   version "10.0.1"
